@@ -8,7 +8,7 @@ import androidx.compose.ui.window.singleWindowApplication
 
 @OptIn(ExperimentalComposeUiApi::class, androidx.compose.foundation.ExperimentalFoundationApi::class)
 fun main() = singleWindowApplication(title = "Context menu") {
-    DesktopMaterialTheme { //it is mandatory for Context Menu
+    DesktopMaterialTheme {
         val text = remember {mutableStateOf("Hello!")}
         TextField(
             value = text.value,

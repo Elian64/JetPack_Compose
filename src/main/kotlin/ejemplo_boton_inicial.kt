@@ -13,6 +13,8 @@ import androidx.compose.ui.window.application
 
 @Composable
 @Preview
+
+
 fun App() {
     var text by remember { mutableStateOf("Hello, World!") }
 
@@ -23,7 +25,9 @@ fun App() {
             Text(text)
         }
     }
+
 }
+
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication) {
