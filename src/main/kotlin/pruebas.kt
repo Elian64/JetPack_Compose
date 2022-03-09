@@ -2,16 +2,11 @@
 import androidx.compose.desktop.DesktopMaterialTheme
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.mouseClickable
-import androidx.compose.material.Button
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -22,20 +17,20 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 
 
-
 @Composable
 @Preview
 fun Greeting(name: String) {
-    Text(text = "Hello $name!",
-        color= Color.Blue,
+    Text(
+        text = "Hello $name!",
+        color = Color.Blue,
         fontSize = 30.sp
 
-                /*modifier = Modifier
-                .width(80.dp)
-            .height(240.dp))*/
+        /*modifier = Modifier
+        .width(80.dp)
+    .height(240.dp))*/
     )
 
- // Text() admite por parámetro argumentos como text, modifier, color, fontSize , etc.
+    // Text() admite por parámetro argumentos como text, modifier, color, fontSize , etc.
 }
 /*
 
@@ -63,7 +58,7 @@ DesktopMaterialTheme {
     }
 }
 */
-
+/*
 @Composable
 fun App3()=
     DesktopMaterialTheme {
@@ -80,6 +75,7 @@ fun App3()=
             style = TextStyle(
                 color = color1
 
+
             )
         )
 
@@ -93,11 +89,113 @@ fun App3()=
 
 
     }
+*/
+/*
+//Uso de Row (Ejemplos)
+@Composable
+
+fun cuadrado1(color1: Color, color2: Color) {
+    Surface(
+        color = color1,
+        modifier = Modifier.size(60.dp)
+    ) {}
+    Surface(
+        color = color2,
+        modifier = Modifier.size(60.dp)
+    ) {}
+}
+
+@Composable
+fun cuadrado2(color1: Color, color2: Color) {
+    Surface(
+        color = color1,
+        modifier = Modifier.size(60.dp)
+    ) {}
+    Surface(
+        color = color2,
+        modifier = Modifier.size(60.dp)
+    ) {}
+
+}
+
+@Composable
+fun aplicacionUsoRowCOlumn() {
+    Surface(
+        color = Color.Black, //fondo
+        modifier = Modifier.fillMaxSize() //lo ajustamos para que ocupe el maximo de la ventana
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            cuadrado1(Color.Magenta, Color.Green)
+        }
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            cuadrado2(Color.Yellow, Color.White)
+        }
+    }
+}
+*/
+
+//Uso de State Lista
+/*
+@Composable
+fun ListaState() {
+    Surface(
+        color = Color.LightGray,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        StudentList()
+    }
+}
+
+@Composable
+fun StudentList() {
+    val text = remember {mutableStateOf("Hello!")}
+    val studentsState = remember { mutableStateListOf("Juan", "Victor", "Esther", "Jaime") }
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        for (student in studentsState) {
+            StudentText(name = student)
+        }
+        TextField(
+            value = text.value,
+            onValueChange = { text.value = it },
+            label = { Text(text = "Nombre nuevo estudiante") }
+        )
+        Button(
+            onClick = {
+                if(text.value !in studentsState)
+                studentsState.add(text.value) }
+        ) {
+            Text(text = "Add new student")
+        }
+    }
+}
+
+@Composable
+fun StudentText(name: String) {
+    Text(
+        text = name,
+        style = MaterialTheme.typography.h5,
+        modifier = Modifier.padding(15.dp) //ajusta separacion de nombres (Importante el padding)
+    )
+}
+
+ */
+
+// Uso de State Lista (ahora con TextField) || Ya hecho realmente arriba (editado codigo de ejemplo)
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication) {
         //GreetingButton()
-        App3()
+        //aplicacionUsoRowCOlumn()
+        // ListaState()
     }
 }
 
