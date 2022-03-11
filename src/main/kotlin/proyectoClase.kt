@@ -22,6 +22,8 @@ import javax.swing.text.Style
 fun Combate() {
 
     DesktopMaterialTheme {
+        var nivelVida = remember { mutableStateOf(1.0f) }
+
         Surface(
             color = Color.LightGray,
             modifier = Modifier.fillMaxSize()
@@ -31,14 +33,15 @@ fun Combate() {
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.Start
             ) {
-                movimientos()
+                movimientos(onCB1= {nivelVida.value --})
             }
 
             Row( //Row de vida
                 verticalAlignment = Alignment.Top,
                 horizontalArrangement = Arrangement.End
             ) {
-                cuadradoVida(9)
+                cuadradoVida(nivelVida)
+
             }
         }
     }
@@ -46,49 +49,50 @@ fun Combate() {
 
 
 @Composable
-fun cuadradoVida(numeroCuadrados: Int) {
-    for (i in 0..numeroCuadrados) {
+fun cuadradoVida(porcentaje: Float) = LinearProgressIndicator(progress = porcentaje)
+    /*for (i in 0..numeroCuadrados) {
         Surface(
             color = Color.Green,
             modifier = Modifier.size(30.dp)
         ) {}
-    }
-}
+    }*/
+
+
 
 @Composable
-fun movimientos() {
+fun movimientos(onCB1:()->Unit, ) {
 
-    //var text by remember { mutableStateOf("M1") }
+    var mov1 by remember { mutableStateOf("M1") }
+    var mov2 by remember { mutableStateOf("M2") }
+    var mov3 by remember { mutableStateOf("M3") }
+    var mov4 by remember { mutableStateOf("M4") }
 
-    val mov1 = remember { mutableStateOf("M1") }
-    val mov2 = remember { mutableStateOf("M2") }
-    val mov3 = remember { mutableStateOf("M3") }
-    val mov4 = remember { mutableStateOf("M4") }
-
-    val lista = listOf(mov1, mov2, mov3, mov4)
-
-    for (movimiento in lista) {
-        Surface(
-            color = Color.White,
-            modifier = Modifier.size(50.dp)
-        ) {
-            /*Button(onClick = {
-                cuadradoVida(7)
-            }) {
-                Text(text)
-            }*/
-            Text(text = movimiento.value,
-                modifier = Modifier.clickable
-                {
-                    //movimiento.value = "OK"
-                    cuadradoVida(7) // Aqui debe restar cuadrados de vida
-
-                })
-
+    DesktopMaterialTheme {
+        Button(onClick = onCB1}) {
+            Text(mov1)
         }
 
+        Button(onClick = {
+            nivelVida.value --
+        }) {
+            Text(mov2)
+        }
+
+        Button(onClick = {
+            nivelVida.value --
+        }) {
+            Text(mov3)
+        }
+
+        Button(onClick = {
+            nivelVida.value --
+        }) {
+            Text(mov4)
+        }
     }
+
 }
+
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication) {
