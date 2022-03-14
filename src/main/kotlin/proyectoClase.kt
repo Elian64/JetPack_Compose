@@ -1,27 +1,14 @@
-// Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 import androidx.compose.desktop.DesktopMaterialTheme
-import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.HorizontalScrollbar
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.mouseClickable
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.Role.Companion.Image
-import androidx.compose.ui.state.ToggleableState
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.ApplicationScope
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import org.jetbrains.skija.Surface
-import javax.swing.text.Style
-import kotlin.system.exitProcess
+
 
 @Composable
 fun Combate() {
@@ -76,7 +63,7 @@ fun cuadradoVida(porcentaje: MutableState<Int>){
 
 }
 
-// Barra de vida basado en una barra de progreso basada en un porcentaje
+// Barra de progreso que avanza o disminuye en base a un porcentaje Float
 fun cuadradoVida2(porcentaje: Float) = LinearProgressIndicator(progress = porcentaje)
 
 
