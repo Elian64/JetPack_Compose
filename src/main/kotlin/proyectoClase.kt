@@ -9,23 +9,27 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.ApplicationScope
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import org.jetbrains.skija.Surface
 import javax.swing.text.Style
+import kotlin.system.exitProcess
 
 @Composable
 fun Combate() {
 
     DesktopMaterialTheme {
-        var nivelVida = remember { mutableStateOf(1.0f) }
+
+        var nivelVida = remember { mutableStateOf(10) }
 
         Surface(
-            color = Color.LightGray,
+            color = Color.DarkGray,
             modifier = Modifier.fillMaxSize()
         ) {
 
@@ -33,7 +37,14 @@ fun Combate() {
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.Start
             ) {
-                movimientos(onCB1= {nivelVida.value --})
+                if(nivelVida.value!=0) {
+                    movimientos(
+                        boton1 = { nivelVida.value-- },
+                        boton2 = { nivelVida.value -= 2 },
+                        boton3 = { nivelVida.value -= 3 },
+                        boton4 = { nivelVida.value -= 4 })
+                }
+
             }
 
             Row( //Row de vida
@@ -48,54 +59,53 @@ fun Combate() {
 }
 
 
+
 @Composable
-fun cuadradoVida(porcentaje: Float) = LinearProgressIndicator(progress = porcentaje)
-    /*for (i in 0..numeroCuadrados) {
+
+fun cuadradoVida(porcentaje: MutableState<Int>){
+    for (i in 0..porcentaje.value.toInt()) {
         Surface(
             color = Color.Green,
-            modifier = Modifier.size(30.dp)
-        ) {}
-    }*/
-
-
-
-@Composable
-fun movimientos(onCB1:()->Unit, ) {
-
-    var mov1 by remember { mutableStateOf("M1") }
-    var mov2 by remember { mutableStateOf("M2") }
-    var mov3 by remember { mutableStateOf("M3") }
-    var mov4 by remember { mutableStateOf("M4") }
-
-    DesktopMaterialTheme {
-        Button(onClick = onCB1}) {
-            Text(mov1)
-        }
-
-        Button(onClick = {
-            nivelVida.value --
-        }) {
-            Text(mov2)
-        }
-
-        Button(onClick = {
-            nivelVida.value --
-        }) {
-            Text(mov3)
-        }
-
-        Button(onClick = {
-            nivelVida.value --
-        }) {
-            Text(mov4)
-        }
+            modifier = Modifier.size(40.dp)
+        )
+        {}
     }
 
 }
 
 
+
+
+@Composable
+fun movimientos(boton1: () -> Unit, boton2: () -> Unit, boton3: () -> Unit, boton4: () -> Unit) {
+
+    var mov1 by remember { mutableStateOf("MOV1") }
+    var mov2 by remember { mutableStateOf("MOV2") }
+    var mov3 by remember { mutableStateOf("MOV3") }
+    var mov4 by remember { mutableStateOf("MOV4") }
+
+    DesktopMaterialTheme {
+        Button(onClick = boton1) {
+            Text(mov1)
+        }
+        Button(onClick = boton2) {
+            Text(mov2)
+        }
+        Button(onClick = boton3) {
+            Text(mov3)
+        }
+        Button(onClick = boton4) {
+            Text(mov4)
+        }
+
+    }
+
+
+}
+
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(title = "Combate", onCloseRequest = ::exitApplication) {
         Combate()
     }
 }
+
