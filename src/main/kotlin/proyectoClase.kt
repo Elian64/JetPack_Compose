@@ -64,6 +64,7 @@ fun cuadradoVida(porcentaje: MutableState<Int>){
 }
 
 // Barra de progreso que avanza o disminuye en base a un porcentaje Float
+@Composable
 fun cuadradoVida2(porcentaje: Float) = LinearProgressIndicator(progress = porcentaje)
 
 
